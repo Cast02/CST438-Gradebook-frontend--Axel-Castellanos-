@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
+import {SERVER_URL} from '../constants.js'
 
 class AddAssignment extends React.Component{
 
@@ -14,7 +15,7 @@ class AddAssignment extends React.Component{
     // this is called when the user pushes the button to add an assignment
     handleAssignment = () => {
         // this is the REST API that adds an assignment
-        fetch('http://localhost:8081/addAssignment',
+        fetch(`${SERVER_URL}/addAssignment`,
         {
             method: 'POST',
             headers: {
@@ -27,7 +28,6 @@ class AddAssignment extends React.Component{
                 courseId: this.state.course
             })
         })
-        // .then(response => response.json())
         .then(response => {
             if(response.ok){
                 toast.success("Assignment added", {
@@ -42,7 +42,7 @@ class AddAssignment extends React.Component{
         })
         .catch(err => console.log(err))
     }
-    // this is called in the TextFields to update the TextField with what the user is typing
+    // this method is called so that while the user is typing in the TextFields, the TextFields are displaying what the user is typing
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value});
     }
